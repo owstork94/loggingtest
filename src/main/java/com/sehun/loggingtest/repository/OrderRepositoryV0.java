@@ -1,9 +1,12 @@
-package repository.OrderRepositoryVo;
+package com.sehun.loggingtest.repository;
 
-import static java.lang.Thread.currentThread;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
 import static java.lang.Thread.sleep;
-
-public class OrderRepositoryVo {
+@RequiredArgsConstructor
+@Repository
+public class OrderRepositoryV0 {
 
     public void save(String itemId) throws InterruptedException {
         if (itemId.equals("ex")){
