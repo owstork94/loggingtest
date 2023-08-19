@@ -15,13 +15,14 @@ public class StartTraceV1 {
 
     private TraceId traceIdHolder;
 
-    private TraceStatus begin(String message){
-        syncTraceId();
+    public TraceStatus begin(String message){
+//        syncTraceId();
 
         TraceId traceId = new TraceId();
         Long startTimeMs = System.currentTimeMillis();
         log.info("[{}] {}{}",traceId.getId(),addSpace(START_PREFIX,
                 traceId.getLevel()),message);
+        //로그 시작 시 값 세팅
         return new TraceStatus(traceId,startTimeMs,message);
     }
 
@@ -42,10 +43,12 @@ public class StartTraceV1 {
             //정상
             log.info("[{}] {}{} time={}ms",traceId.getId(),addSpace(COMPLETE_PREFIX,traceId.getLevel()),status.getMessage(),resultTimeMs);
         }else {
-            log.info("[{}] {}{} time={}ms ex={}",traceId.getId(),addSpace(EX_PREFIX, traceId.getLevel()),resultTimeMs,e.toString());
+            log.info("[{}] {}{} time={}ms ex={}", traceId.getId(),
+                    addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs,
+                    e.toString());
         }
 
-        releaseTraceId();
+//        releaseTraceId();
     }
 
     private void syncTraceId() {
