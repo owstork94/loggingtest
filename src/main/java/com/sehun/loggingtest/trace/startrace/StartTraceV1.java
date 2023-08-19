@@ -20,7 +20,8 @@ public class StartTraceV1 {
 
         TraceId traceId = new TraceId();
         Long startTimeMs = System.currentTimeMillis();
-        log.info("[{}] {}{}",traceId.getId(),addspace(START_PREFIX,traceId.getLevel()));
+        log.info("[{}] {}{}",traceId.getId(),addSpace(START_PREFIX,
+                traceId.getLevel()),message);
         return new TraceStatus(traceId,startTimeMs,message);
     }
 
