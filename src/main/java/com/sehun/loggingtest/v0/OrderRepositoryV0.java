@@ -1,16 +1,14 @@
-package com.sehun.loggingtest.repository;
+package com.sehun.loggingtest.v0;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import static java.lang.Thread.sleep;
 @RequiredArgsConstructor
 @Repository
 public class OrderRepositoryV0 {
 
-    public void save(String itemId) throws InterruptedException {
+    public void save(String itemId){
         if (itemId.equals("ex")){
-            throw new IllegalArgumentException("FF");
+            throw new IllegalArgumentException("throw exception");
         }
         sleep(1000);
     }
