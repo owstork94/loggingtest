@@ -8,8 +8,10 @@ class StartTraceV2Test {
     @Test
     void begin_end(){
         StartTraceV2 v2 = new StartTraceV2();
-        TraceStatus status = v2.begin("test02");
-        v2.end(status);
+        TraceStatus status1 = v2.begin("test01");
+        TraceStatus status2 = v2.beginSync(status1.getTraceId(),"test02");
+        v2.end(status1);
+        v2.end(status2);
     }
     @Test
     void exception(){
