@@ -16,7 +16,7 @@ public class StartTraceV1 {
     private TraceId traceIdHolder;
 
     public TraceStatus begin(String message){
-//        syncTraceId();
+        syncTraceId();
 
         TraceId traceId = new TraceId();
         Long startTimeMs = System.currentTimeMillis();
@@ -52,7 +52,7 @@ public class StartTraceV1 {
     }
 
     private void syncTraceId() {
-        if(traceIdHolder.getId() == null){
+        if(traceIdHolder == null){
             traceIdHolder = new TraceId();
         }else{
             traceIdHolder = traceIdHolder.createNextId();

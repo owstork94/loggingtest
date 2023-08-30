@@ -63,7 +63,7 @@ public class StartTraceV2 {
     }
 
     private void syncTraceId() {
-        if(traceIdHolder.getId() == null){
+        if(traceIdHolder == null){
             traceIdHolder = new TraceId();
         }else{
             traceIdHolder = traceIdHolder.createNextId();
