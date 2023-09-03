@@ -34,6 +34,7 @@ public class TemplateMethodTest {
             }
         };
         abstractTemplate1_1.excute();
+        log.info("getClass-1 {}",abstractTemplate1_1.getClass());
 
         AbstractTemplate abstractTemplate1_2 = new AbstractTemplate() {
             @Override
@@ -42,6 +43,7 @@ public class TemplateMethodTest {
             }
         };
         abstractTemplate1_2.excute();
+        log.info("getClass-2 {}",abstractTemplate1_1.getClass());
     }
 
     private void loginc1() {
