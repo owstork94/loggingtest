@@ -7,14 +7,14 @@ public abstract class AbstractTemplate {
 
     public void excute(){
         long startTime = System.currentTimeMillis();
-//비즈니스 로직 실행
-//        log.info("비즈니스 로직1 실행");
-        coll();
-//비즈니스 로직 종료
+
+        //변경되는 부분
+        call();
+
         long endTime = System.currentTimeMillis();
         long resultTime = endTime - startTime;
         log.info("resultTime={}", resultTime);
     }
 
-    protected abstract void coll();
+    protected abstract void call();
 }

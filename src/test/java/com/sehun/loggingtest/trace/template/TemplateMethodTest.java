@@ -25,6 +25,24 @@ public class TemplateMethodTest {
         abstractTemplate2.excute();
 
     }
+    @Test
+    void templateMdthodV2(){
+        AbstractTemplate abstractTemplate1_1 = new AbstractTemplate() {
+            @Override
+            protected void call() {
+                log.info("Template Method 패턴1");
+            }
+        };
+        abstractTemplate1_1.excute();
+
+        AbstractTemplate abstractTemplate1_2 = new AbstractTemplate() {
+            @Override
+            protected void call() {
+                log.info("Template Method 패턴2");
+            }
+        };
+        abstractTemplate1_2.excute();
+    }
 
     private void loginc1() {
         long startTime = System.currentTimeMillis();
