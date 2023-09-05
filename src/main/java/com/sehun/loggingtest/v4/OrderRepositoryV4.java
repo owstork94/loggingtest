@@ -1,13 +1,12 @@
-package com.sehun.loggingtest.v3;
+package com.sehun.loggingtest.v4;
 
 import com.sehun.loggingtest.trace.TraceStatus;
-import com.sehun.loggingtest.trace.logtrace.FieldLogTrace;
 import com.sehun.loggingtest.trace.logtrace.LogTrace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 @Repository
-public class OrderRepositoryV3 {
+public class OrderRepositoryV4 {
 
     private final LogTrace logTrace;
 
