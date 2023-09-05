@@ -17,7 +17,7 @@ public class OrderControllerV4 {
 
     private final LogTrace logTrace;
 
-    @GetMapping("v3/request")
+    @GetMapping("v4/request")
     public String request(@RequestParam String itemId){
         
         TraceStatus Status = null;
