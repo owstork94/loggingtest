@@ -2,6 +2,7 @@ package com.sehun.loggingtest.v4;
 
 import com.sehun.loggingtest.trace.TraceStatus;
 import com.sehun.loggingtest.trace.logtrace.LogTrace;
+import com.sehun.loggingtest.trace.template.AbstractTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,16 +22,13 @@ public class OrderControllerV4 {
     public String request(@RequestParam String itemId){
         
         TraceStatus Status = null;
-        try {
-            Status =  logTrace.begin("OrderControllerV3.request");
-            orderServiceV4.orderItem(itemId);
-            logTrace.end(Status);
-            return "OK";
-        }catch (Exception e){
-            logTrace.exception(Status, e);
-            throw e;
-        }
-
-
+        AbstractTemplate<String> abstractTemplate = new AbstractTemplate<>(logTrace) {
+            @Override
+            protected String call() {
+                orderServiceV4.orderItem(itemId);
+                return "OK";
+            }
+        };
+    return abstractTemplate.excute("OrderControllerV4.Request");
     }
 }
