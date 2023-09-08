@@ -4,8 +4,8 @@ import com.sehun.loggingtest.trace.TraceStatus;
 import com.sehun.loggingtest.trace.logtrace.LogTrace;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-public class TraceTemplate<T>{
+
+public class TraceTemplate{
 
     private final LogTrace trace;
 
@@ -31,16 +31,3 @@ public class TraceTemplate<T>{
 
 
 }
-//
-//
-//
-//    TraceStatus Status = null;
-//        try {
-//                Status =  traceV1.begin("OrderControllerV1.request");
-//                orderServiceV1.orderItem(itemId);
-//                traceV1.end(Status);
-//                return "OK";
-//                }catch (Exception e){
-//                traceV1.exception(Status, e);
-//                throw e;
-//                }
