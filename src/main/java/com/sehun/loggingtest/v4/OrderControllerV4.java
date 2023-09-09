@@ -1,7 +1,8 @@
 package com.sehun.loggingtest.v4;
 
 import com.sehun.loggingtest.trace.TraceStatus;
-import com.sehun.loggingtest.trace.logtrace.FieldLogTrace;
+import com.sehun.loggingtest.trace.logtrace.LogTrace;
+import com.sehun.loggingtest.trace.template.AbstractTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,21 +14,21 @@ public class OrderControllerV4 {
 
     private final OrderServiceV4 orderServiceV4;
 
-    private final FieldLogTrace fieldLogTrace;
+    /*private final FieldLogTrace fieldLogTrace;*/
+
+    private final LogTrace logTrace;
 
     @GetMapping("v4/request")
     public String request(@RequestParam String itemId){
+        
         TraceStatus Status = null;
-        try {
-            Status =  fieldLogTrace.begin("OrderControllerv4.request");
-            orderServiceV4.orderItem(Status.getTraceId(),itemId);
-            fieldLogTrace.end(Status);
-            return "OK";
-        }catch (Exception e){
-            fieldLogTrace.exception(Status, e);
-            throw e;
-        }
-
-
+        AbstractTemplate<String> abstractTemplate = new AbstractTemplate<>(logTrace) {
+            @Override
+            protected String call() {
+                orderServiceV4.orderItem(itemId);
+                return "OK";
+            }
+        };
+    return abstractTemplate.excute("OrderControllerV4.Request");
     }
 }

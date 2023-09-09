@@ -1,8 +1,8 @@
 package com.sehun.loggingtest.v4;
 
-import com.sehun.loggingtest.trace.TraceId;
 import com.sehun.loggingtest.trace.TraceStatus;
-import com.sehun.loggingtest.trace.logtrace.FieldLogTrace;
+import com.sehun.loggingtest.trace.logtrace.LogTrace;
+import com.sehun.loggingtest.trace.template.AbstractTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderServiceV4 {
     private final OrderRepositoryV4 orderRepositoryV4;
-    private final FieldLogTrace traceV4;
+    private final LogTrace logTrace;
 
-    public void orderItem(TraceId traceId, String itemId){
+    public Void orderItem(String itemId){
         TraceStatus status = null;
-
-        try {
-            status = traceV4.begin("OrderServiceV4.orderItem");
-            orderRepositoryV4.save(traceId,itemId);
-            traceV4.end(status);
-        }catch (Exception e){
-            traceV4.exception(status,e);
-            throw e;
-        }
+        AbstractTemplate<Void> template = new AbstractTemplate<Void>(logTrace) {
+            @Override
+            protected Void call() {
+                orderRepositoryV4.save(itemId);
+                return null;
+            }
+        };
+        return template.excute("OrderRepositoryV4.Request");
 
     }
 

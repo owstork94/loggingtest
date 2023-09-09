@@ -1,33 +1,41 @@
 package com.sehun.loggingtest.trace.template;
 
 import com.sehun.loggingtest.trace.TraceStatus;
-import com.sehun.loggingtest.trace.logtrace.FieldLogTrace;
 import com.sehun.loggingtest.trace.logtrace.LogTrace;
+import jdk.jshell.Snippet;
+import lombok.extern.java.Log;
 
-public abstract class AbstractTemplate<T>{
-    private final LogTrace logTrace;
-    public AbstractTemplate(LogTrace logTrace) {
-        this.logTrace = logTrace;
+public abstract class AbstractTemplate<T> {
+    private final LogTrace trace;
+    public AbstractTemplate(LogTrace trace) {
+        this.trace = trace;
     }
-
 
     public T excute(String message){
         TraceStatus status = null;
         try {
-            status = logTrace.begin(message);
+            status = trace.begin(message);
 
-            //바뀌는 로직
             T result = call();
 
-            logTrace.end(status);
-        return result;
+            trace.end(status);
+            return result;
         }catch (Exception e){
-            logTrace.exception(status,e);
-
-
-        };
-
+            trace.exception(status,e);
+            throw e;
+        }
     }
-
     protected abstract T call();
+
 }
+//
+//    TraceStatus Status = null;
+//        try {
+//                Status =  logTrace.begin("OrderControllerV3.request");
+//                orderServiceV4.orderItem(itemId);
+//                logTrace.end(Status);
+//                return "OK";
+//                }catch (Exception e){
+//                logTrace.exception(Status, e);
+//                throw e;
+//                }
